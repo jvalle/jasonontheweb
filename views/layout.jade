@@ -1,0 +1,26 @@
+!!!
+html
+    head
+        meta(charset="utf-8")
+        title This is my title
+        link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")        
+        link(rel="stylesheet", href="/stylesheets/style.css")
+    body
+        nav(role="navigation").navbar.navbar-inverse
+            .navbar-header
+                button(type="button", data-toggle="collapse", data-target=".navbar-ex1-collapse").navbar-toggle
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a(href="#" ).navbar-brand jason on the web
+            .collapse.navbar-collapse.navbar-ex1-collapse
+                ul.nav.navbar-nav
+                    li: a(href="/") home
+                    li: a(href="/work") work
+                    li: a(href="#") blog
+                    li: a(href="#") contact
+        block content
+
+    script(type="text/javascript", src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    script(type="text/javascript", src="javascripts/bootstrap.min.js")

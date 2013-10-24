@@ -1,0 +1,19 @@
+extends layout
+
+block content
+
+    .content
+        h1= title
+
+        form(method="post")
+            fieldset
+                label(for="editArticleTitle") Title:
+                input(name="title", id="editArticleTitle")
+
+                label(for="editPostUrl") Post URL:
+                input(name="postUrl", id="editPostUrl")
+
+                label(for="editArticleBody") Body:
+                textarea(name="body", rows=20, id="editArticleBody")
+
+                input(type="submit", value="Submit")
