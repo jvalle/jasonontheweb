@@ -1,4 +1,5 @@
 var express = require('express');
+var routes = require('./routes');
 var ArticleProvider = require('./articleprovider-mongodb').ArticleProvider;
 var UserProvider = require('./users/user-provider').UserProvider;
 
@@ -25,14 +26,7 @@ app.configure('production', function () {
 var articleProvider = new ArticleProvider('localhost', 27017);
 var userProvider = new UserProvider('localhost', 27017);
 
-app.get('/', function (req, res) {
-	articleProvider.findAll(function (error, docs) {
-		res.render('index.jade', {
-			title: 'jason on the web',
-			articles: docs
-		});
-	});
-});
+app.get('/', routes.index);
 
 app.get('/login', function (req, res) {
 	res.render('login.jade');
