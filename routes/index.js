@@ -1,4 +1,3 @@
-var ArticleProvider = require('./articleprovider-mongodb').ArticleProvider;
 
 /*
  * GET home page.

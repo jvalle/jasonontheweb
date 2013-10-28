@@ -26,26 +26,44 @@ app.configure('production', function () {
 var articleProvider = new ArticleProvider('localhost', 27017);
 var userProvider = new UserProvider('localhost', 27017);
 
-app.get('/', routes.index);
-
-app.get('/login', function (req, res) {
-	res.render('login.jade');
-});
-
-app.post('/login', function (req, res){
+var auth = express.basicAuth(function(user, pass) {
 	userProvider.auth({
-		username: req.param('username'),
-		password: req.param('password')
-	}, function (error, loggedIn) {
-		if (loggedIn) {
-			res.redirect('/blog/new');
-		} else {
+		username: user,
+		password: pass
+	}, function (err, result) {
+		if (!result) {
 			res.redirect('/');
 		}
 	});
 });
 
-app.get('/blog/new', function (req, res) {
+app.get('/', function (req, res) {
+	articleProvider.findAll(function (error, docs) {
+		res.render('index.jade', {
+			title: 'jason on the web',
+			articles: docs
+		});
+	});
+});
+
+// app.get('/login', function (req, res) {
+// 	res.render('login.jade');
+// });
+
+// app.post('/login', function (req, res){
+// 	userProvider.auth({
+// 		username: req.param('username'),
+// 		password: req.param('password')
+// 	}, function (error, loggedIn) {
+// 		if (loggedIn) {
+// 			res.redirect('/blog/new');
+// 		} else {
+// 			res.redirect('/');
+// 		}
+// 	});
+// });
+
+app.get('/blog/new', auth, function (req, res) {
 	res.render('blog_new.jade', {
 		title: 'New Post'
 	});
