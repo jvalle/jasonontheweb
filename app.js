@@ -1,7 +1,8 @@
 var express = require('express');
 var routes = require('./routes');
+var passport = require('passport');
 var ArticleProvider = require('./articleprovider-mongodb').ArticleProvider;
-var UserProvider = require('./users/user-provider').UserProvider;
+// var UserProvider = require('./users/user-provider').UserProvider;
 
 var app = module.exports = express();
 
@@ -24,18 +25,18 @@ app.configure('production', function () {
 });
 
 var articleProvider = new ArticleProvider('localhost', 27017);
-var userProvider = new UserProvider('localhost', 27017);
+// var userProvider = new UserProvider('localhost', 27017);
 
-var auth = express.basicAuth(function(user, pass) {
-	userProvider.auth({
-		username: user,
-		password: pass
-	}, function (err, result) {
-		if (!result) {
-			res.redirect('/');
-		}
-	});
-});
+// var auth = express.basicAuth(function(user, pass) {
+// 	userProvider.auth({
+// 		username: user,
+// 		password: pass
+// 	}, function (err, result) {
+// 		if (!result) {
+// 			res.redirect('/');
+// 		}
+// 	});
+// });
 
 app.get('/', function (req, res) {
 	articleProvider.findAll(function (error, docs) {
@@ -63,11 +64,14 @@ app.get('/', function (req, res) {
 // 	});
 // });
 
-app.get('/blog/new', auth, function (req, res) {
-	res.render('blog_new.jade', {
-		title: 'New Post'
-	});
-});
+app.get('/blog/new', 
+	passport.authenticate('local'), 
+	function (req, res) {
+		res.render('blog_new.jade', {
+			title: 'New Post'
+		});
+	}
+);
 
 app.post('/blog/new', function (req, res) {
 	articleProvider.save({
