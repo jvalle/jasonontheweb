@@ -44,6 +44,10 @@ textarea {
   color: #222;
 }
 @media (min-width: 768px) {
+  .navbar {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+  }
   .navbar-header {
     float: none;
     text-align: center;
