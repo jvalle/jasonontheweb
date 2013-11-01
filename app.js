@@ -1,8 +1,39 @@
 var express = require('express');
-var routes = require('./routes');
-var passport = require('passport');
+// var routes = require('./routes');
+var passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy;
+
 var ArticleProvider = require('./articleprovider-mongodb').ArticleProvider;
 // var UserProvider = require('./users/user-provider').UserProvider;
+
+
+//this should be all database style
+var users = [
+	{ id: 1, username: 'jason', password: 'secret' }
+];
+
+function findByUsername(username, fn) {
+	for (var i = 0, len = users.length; i < len; i++) {
+		var user = users[i];
+		if (user.username === username) {
+			return fn(null, user);
+		}
+	}
+	return fn(null, null);
+}
+
+passport.use(new LocalStrategy(
+	function(username, password, done) {
+		process.nextTick(function () {
+			findByUsername(username, function (err, user) {
+				if (err) { return done(err); }
+				if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+				if (user.password != password) { return done(null, false, { message: 'Invalid Password' }); }
+				return done(null, user);
+			})
+		});
+	}
+));
 
 var app = module.exports = express();
 
@@ -14,6 +45,7 @@ app.configure(function () {
 	app.use(require('stylus').middleware({src: __dirname + '/public'}));
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
+	app.use(passport.initialize());
 });
 
 app.configure('development', function () {
@@ -23,6 +55,8 @@ app.configure('development', function () {
 app.configure('production', function () {
 	app.use(express.errorHandler());
 });
+
+
 
 var articleProvider = new ArticleProvider('localhost', 27017);
 // var userProvider = new UserProvider('localhost', 27017);
