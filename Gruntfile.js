@@ -2,6 +2,12 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
+		open: {
+			dev: {	
+				path: "http://localhost:3000"
+			}
+		},
+
 		less: {
 			compile: {
 				options: {
@@ -13,6 +19,12 @@ module.exports = function (grunt) {
 			}
 		},
 
+		autoprefixer: {
+			single_file: {
+				src: './public/styles/main.css'
+			}
+		},
+
 		watch: {
 			styles: {
 				files: "./public/less/*.less",
@@ -21,24 +33,19 @@ module.exports = function (grunt) {
 					livereload: true
 				}
 			}
-		},
-
-		open: {
-			dev: {	
-				path: "http://localhost:3000"
-			}
-		}
+		}		
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-open');
+	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['less', 'open:dev', 'watch']);
+	grunt.registerTask('default', ['open:dev', 'less', 'autoprefixer', 'watch']);	
 	grunt.registerTask('server', 'Start a custom web server', function () {
 		require('./app.js').listen(3000);
 		grunt.log.writeln('Web Server listening on port 3000');
 
-		grunt.task.run(['less', 'open:dev', 'watch']);
+		grunt.task.run(['open:dev', 'less', 'autoprefixer', 'watch']);
 	});
 };
