@@ -1,4 +1,5 @@
 var express = require('express');
+    app = module.exports = express();
 var routes = require('./routes');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
@@ -137,8 +138,8 @@ app.get('/logout', function (req, res) {
     res.redirect('/')
 });
 
-app.listen(3000);
-console.log("App.js initiated on port: " + 3000);
+// app.listen(3000);
+// console.log("App.js initiated on port: " + 3000);
 
 function ensureAuthenticated (req, res, next) {
     if (req.isAuthenticated()) { return next(); }
