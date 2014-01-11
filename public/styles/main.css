@@ -59,6 +59,7 @@ textarea {
   }
   .navbar-brand {
     float: none;
+    font-size: 42px;
     line-height: 120px;
   }
   .navbar-nav {
