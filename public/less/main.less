@@ -71,13 +71,24 @@ textarea {
     }
     .navbar-nav {
         float: none;
+
         li {
             width: 30%;
+
             &:first-child {
                 margin-left: 5%;
             }
+
             a {
+                border-bottom: 2px solid transparent;
                 display: inline-block;
+                margin-bottom: 13px;
+                padding: 10px 0 2px 0;
+                transition: all 350ms;
+
+                &:hover {
+                    border-bottom: 2px solid #fff;
+                }
             }
         }
     }

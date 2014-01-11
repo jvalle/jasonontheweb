@@ -77,7 +77,14 @@ textarea {
     margin-left: 5%;
   }
   .navbar-nav li a {
+    border-bottom: 2px solid transparent;
     display: inline-block;
+    margin-bottom: 13px;
+    padding: 10px 0 2px 0;
+    transition: all 350ms;
+  }
+  .navbar-nav li a:hover {
+    border-bottom: 2px solid #fff;
   }
   .content {
     margin: 0 auto;
