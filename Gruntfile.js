@@ -41,11 +41,19 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['open:dev', 'less', 'autoprefixer', 'watch']);	
+	grunt.registerTask('default', ['open:dev', 'less', 'autoprefixer', 'watch']);
+
 	grunt.registerTask('server', 'Start a custom web server', function () {
 		require('./app.js').listen(3000);
 		grunt.log.writeln('Web Server listening on port 3000');
 
 		grunt.task.run(['open:dev', 'less', 'autoprefixer', 'watch']);
+	});
+
+	grunt.registerTask('prod', 'Initiate Prod Web Server', function () {
+		require('./app.js').listen(3000);
+		grunt.log.writeln('Web Server listening on port 3000');
+
+		grunt.task.run(['autoprefixer', 'watch']);
 	});
 };
