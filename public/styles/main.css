@@ -1,114 +1,91 @@
 body {
   font: 14px sans-serif;
 }
-
 h1,
 h2,
 h3 {
   margin-top: 10px;
 }
-
 fieldset {
   border: 0;
 }
-
 label {
   display: block;
   margin-top: 12px;
 }
-
 textarea {
   display: block;
   width: 100%;
 }
-
 .navbar-nav {
   text-align: center;
 }
-
 .content {
   padding: 0 5px;
 }
-
 .sidebar {
   background: #f8f8f8;
   float: right;
   width: 20%;
 }
-
 #articles {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 #articles .article {
   background: #fff;
   margin-bottom: 18px;
   padding: 12px;
 }
-
 #articles .title {
   font-size: 18px;
   margin: 5px 0;
 }
-
 #articles .title a {
   text-decoration: none;
 }
-
 #articles .created-at {
   color: #999;
   font-size: 11px;
   margin: 5px 0;
 }
-
 #articles .article-body {
   color: #222;
 }
-
 @media (min-width: 768px) {
   .navbar {
     border-radius: 0;
   }
-
   .navbar-header {
     float: none;
     text-align: center;
     width: 100%;
   }
-
   .navbar-brand {
     float: none;
     font-size: 42px;
     line-height: 120px;
   }
-
   .navbar-nav {
     float: none;
   }
-
   .navbar-nav li {
     width: 30%;
   }
-
   .navbar-nav li:first-child {
     margin-left: 5%;
   }
-
   .navbar-nav li a {
     border-bottom: 2px solid transparent;
     display: inline-block;
     margin-bottom: 13px;
     padding: 10px 0 2px 0;
-    -webkit-transition: all 350ms;
     transition: all 350ms;
   }
-
   .navbar-nav li a:hover {
     border-bottom: 2px solid #fff;
   }
-
   .content {
     margin: 0 auto;
     width: 980px;
