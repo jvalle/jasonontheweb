@@ -4,8 +4,7 @@ var routes = require('./routes');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
-var ArticleProvider = require('./articleprovider-mongodb').ArticleProvider;
-// var UserProvider = require('./users/user-provider').UserProvider;
+var db = require('./articleprovider-mongodb');
 
 
 //this should be all database style
@@ -56,8 +55,6 @@ passport.use(new LocalStrategy(
     }
 ));
 
-var app = module.exports = express();
-
 app.configure(function () {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
@@ -80,9 +77,6 @@ app.configure('production', function () {
     app.use(express.errorHandler());
 });
 
-var articleProvider = new ArticleProvider('localhost', 27017);
-// var userProvider = new UserProvider('localhost', 27017);
-
 app.get('/login', function (req, res) {
  res.render('login.jade');
 });
@@ -95,7 +89,7 @@ app.post('/login',
 });
 
 app.get('/', function (req, res) {
-    articleProvider.findAll(function (error, docs) {
+    db.findAll(function (error, docs) {
         res.render('index.jade', {
             title: 'jason on the web',
             articles: docs
@@ -112,7 +106,7 @@ app.get('/blog/new', ensureAuthenticated,
 );
 
 app.post('/blog/new', function (req, res) {
-    articleProvider.save({
+    db.saveArticle({
         title: req.param('title'),
         body: req.param('body'),
         postUrl: req.param('postUrl')
@@ -122,7 +116,7 @@ app.post('/blog/new', function (req, res) {
 });
 
 app.get('/blog/:postUrl', function (req, res) {
-    articleProvider.findById(req.params.postUrl, function (error, article) {
+    db.findOne(req.params.postUrl, function (error, article) {
         res.render('blog_article.jade',  {
             article: article
         });
