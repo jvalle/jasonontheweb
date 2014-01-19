@@ -18,6 +18,7 @@
     "stylus": "*",
     "mongodb": ">0.9.6-7",
     "passport": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "mongojs": "~0.10.0"
   }
 }
