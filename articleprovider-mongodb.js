@@ -1,6 +1,6 @@
 var config = require('./config.js');
 
-var db = require('mongojs').connect(config.mongohq_uri, config.mongo_collection);
+var db = require('mongojs').connect(config.mongohq_uri, ['articles']);
 
 var findAll = module.exports.findAll = function (callback) {
     db.articles.find().sort({created_at: -1}).toArray(function (err, results) {

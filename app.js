@@ -1,5 +1,6 @@
 var express = require('express');
     app = module.exports = express();
+var config = require('./config');
 var routes = require('./routes');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
@@ -9,7 +10,7 @@ var db = require('./articleprovider-mongodb');
 
 //this should be all database style
 var users = [
-    { id: 1, username: 'jason', password: 'secret' }
+    { id: 1, username: config.username, password: config.loginpw }
 ];
 
 function findById (id, fn) {
@@ -84,7 +85,6 @@ app.get('/login', function (req, res) {
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login' }),
     function (req, res) {
-        console.log('didnt get failure redirected!');
         res.redirect('/blog/new');
 });
 
