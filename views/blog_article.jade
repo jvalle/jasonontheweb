@@ -3,5 +3,5 @@ extends layout
 block content
     .content
         h1= article.title
-        p posted on #{ article.created_at }
+        p posted on #{ article.display_date }
         div!= article.body

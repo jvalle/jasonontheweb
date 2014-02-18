@@ -1,4 +1,5 @@
 var config = require('./config.js');
+var moment = require('moment');
 
 var db = require('mongojs').connect(config.mongohq_uri, ['articles']);
 
@@ -14,6 +15,7 @@ var findAll = module.exports.findAll = function (callback) {
 
 var saveArticle = module.exports.saveArticle = function (article, callback) {
     article.created_at = new Date();
+    article.display_date = moment().format("MMMM Do, YYYY");
 
     db.articles.save(article, function (err, saved) {
         if (err) {
