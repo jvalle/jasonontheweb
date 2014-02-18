@@ -5,15 +5,16 @@ block content
     .content
         h1= title
 
-        form(method="post")
+        form(method="post", role="form")
             fieldset
-                label(for="editArticleTitle") Title:
-                input(name="title", id="editArticleTitle")
+                .form-group
+                    label(for="editArticleTitle") Title
+                    input.form-control(name="title", id="editArticleTitle")
+                .form-group
+                    label(for="editPostUrl") Post URL
+                    input.form-control(name="postUrl", id="editPostUrl")
+                .form-group
+                    label(for="editArticleBody") Body
+                    textarea.form-control(name="body", rows=20, id="editArticleBody")
 
-                label(for="editPostUrl") Post URL:
-                input(name="postUrl", id="editPostUrl")
-
-                label(for="editArticleBody") Body:
-                textarea(name="body", rows=20, id="editArticleBody")
-
-                input(type="submit", value="Submit")
+                button.btn.btn-primary(type="submit") Submit Post
