@@ -4,6 +4,7 @@ var config = require('./config');
 var routes = require('./routes');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
+var markdown = require('./markdown');
 
 var db = require('./articleprovider-mongodb');
 
@@ -108,8 +109,8 @@ app.get('/blog/new', ensureAuthenticated,
 app.post('/blog/new', function (req, res) {
     db.saveArticle({
         title: req.param('title'),
-        body: req.param('body'),
-        postUrl: req.param('postUrl')
+        postUrl: req.param('postUrl'),
+        body: markdown.parseMarkdown(req.param('body'))
     }, function (error, docs) {
         res.redirect('/');
     });
