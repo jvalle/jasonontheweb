@@ -16,6 +16,9 @@ textarea {
     display: block;
     width: 100%;
 }
+.centered {
+    text-align: center;
+}
 .navbar-nav {
     text-align: center;
 }
@@ -55,6 +58,7 @@ textarea {
     }
 }
 
+
 @media (min-width: 768px) {
     .navbar {
         border-radius: 0;
@@ -68,6 +72,7 @@ textarea {
         float: none;
         font-size: 42px;
         line-height: 120px;
+        transition: all 350ms;
     }
     .navbar-nav {
         float: none;
@@ -95,5 +100,11 @@ textarea {
     .content {
         margin: 0 auto;
         width: 980px;
+    }
+    .form-inline .form-group {
+        margin: 10px;
+        &:first-child {
+            margin-left: 0;
+        }
     }
 }
