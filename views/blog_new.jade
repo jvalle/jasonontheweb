@@ -5,7 +5,7 @@ block content
     .content
         h1= title
 
-        form(method="post", role="form")
+        form.new-post(method="post", role="form")
             fieldset
                 .form-group
                     label(for="editArticleTitle") Title
@@ -16,5 +16,11 @@ block content
                 .form-group
                     label(for="editArticleBody") Body
                     textarea.form-control(name="body", rows=20, id="editArticleBody")
+            button.btn.btn-primary(type="submit") Submit Post
+        .preview-container
+            h2.centered Post Preview
+        .post-preview
 
-                button.btn.btn-primary(type="submit") Submit Post
+block scripts
+    script(type="text/javascript", src="/scripts/marked.js")
+    script(type="text/javascript", src="/scripts/main.js")
