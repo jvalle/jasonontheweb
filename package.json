@@ -20,6 +20,7 @@
     "passport": "*",
     "passport-local": "*",
     "mongojs": "~0.10.0",
-    "marked": "~0.3.1"
+    "marked": "~0.3.1",
+    "moment": "~2.5.1"
   }
 }
