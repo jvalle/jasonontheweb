@@ -5,11 +5,10 @@ var routes = require('./routes');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 var markdown = require('./markdown');
-
 var db = require('./articleprovider-mongodb');
 
 
-//this should be all database style
+//this should be all modularized
 var users = [
     { id: 1, username: config.username, password: config.loginpw }
 ];
@@ -91,10 +90,14 @@ app.post('/login',
 
 app.get('/', function (req, res) {
     db.findAll(function (error, docs) {
-        res.render('index.jade', {
-            title: 'jason on the web',
-            articles: docs
-        });
+        if (error) {
+            res.render('error.jade');
+        } else {
+            res.render('index.jade', {
+                title: 'jason on the web',
+                articles: docs
+            });
+        }
     });
 });
 
@@ -112,7 +115,12 @@ app.post('/blog/new', function (req, res) {
         postUrl: req.param('postUrl'),
         body: markdown.parseMarkdown(req.param('body'))
     }, function (error, docs) {
-        res.redirect('/');
+        if (error) {
+            console.log('The article wasn\'t saved.  Hopefully it is still there.');
+            res.end('ya done');
+        } else {
+            res.redirect('/');
+        }
     });
 });
 
