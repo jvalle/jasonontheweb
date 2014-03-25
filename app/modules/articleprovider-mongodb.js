@@ -1,7 +1,9 @@
 var config = require('../../config.js');
 var moment = require('moment');
 
-var db = require('mongojs').connect(config.mongohq_uri, ['articles']);
+var mongouri = process.env.MONGO_URI || config.mongohq_uri;
+
+var db = require('mongojs').connect(mongouri, ['articles']);
 
 var findAll = module.exports.findAll = function (callback) {
     db.articles.find().sort({created_at: -1}).toArray(function (err, results) {

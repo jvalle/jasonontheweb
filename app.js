@@ -12,8 +12,8 @@ var db = require('./app/modules/articleprovider-mongodb');
 var users = [
     {
         id: 1,
-        username: config.username, 
-        password: config.loginpw 
+        username: process.env.USERNAME,
+        password: process.env.PASS
     }
 ];
 
@@ -59,19 +59,20 @@ passport.use(new LocalStrategy(function(username, password, done) {
     }
 ));
 
-app.configure(function () {
-    app.set('views', __dirname + '/app/views');
-    app.set('view engine', 'jade');
-    app.use(express.cookieParser());
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.session({ secret: 'keyboard cat' }));
-    app.use(require('stylus').middleware({src: __dirname + '/public'}));
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.use(app.router);
-    app.use(express.static(__dirname + '/public'));
-});
+// configure app
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/app/views');
+app.set('view engine', 'jade');
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(require('stylus').middleware({src: __dirname + '/public'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
 
 app.configure('development', function () {
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -143,8 +144,7 @@ app.get('/logout', function (req, res) {
     res.redirect('/')
 });
 
-// app.listen(3000);
-// console.log("App.js initiated on port: " + 3000);
+app.listen(app.get('port'));
 
 function ensureAuthenticated (req, res, next) {
     if (req.isAuthenticated()) { return next(); }
