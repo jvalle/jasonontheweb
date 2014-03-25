@@ -1,4 +1,4 @@
-var config = require('./config.js');
+var config = require('../../config.js');
 var moment = require('moment');
 
 var db = require('mongojs').connect(config.mongohq_uri, ['articles']);

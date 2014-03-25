@@ -1,16 +1,20 @@
 var express = require('express');
     app = module.exports = express();
 var config = require('./config');
-var routes = require('./routes');
+var routes = require('./app/routes');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
-var markdown = require('./markdown');
-var db = require('./articleprovider-mongodb');
+var markdown = require('./app/modules/markdown');
+var db = require('./app/modules/articleprovider-mongodb');
 
 
 //this should be all modularized
 var users = [
-    { id: 1, username: config.username, password: config.loginpw }
+    {
+        id: 1,
+        username: config.username, 
+        password: config.loginpw 
+    }
 ];
 
 function findById (id, fn) {
@@ -43,8 +47,7 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
+passport.use(new LocalStrategy(function(username, password, done) {
         process.nextTick(function () {
             findByUsername(username, function (err, user) {
                 if (err) { return done(err); }
@@ -57,7 +60,7 @@ passport.use(new LocalStrategy(
 ));
 
 app.configure(function () {
-    app.set('views', __dirname + '/views');
+    app.set('views', __dirname + '/app/views');
     app.set('view engine', 'jade');
     app.use(express.cookieParser());
     app.use(express.bodyParser());
@@ -82,7 +85,7 @@ app.get('/login', function (req, res) {
  res.render('login.jade');
 });
 
-app.post('/login',
+app.post('/login', 
     passport.authenticate('local', { failureRedirect: '/login' }),
     function (req, res) {
         res.redirect('/blog/new');
@@ -117,7 +120,6 @@ app.post('/blog/new', function (req, res) {
     }, function (error, docs) {
         if (error) {
             console.log('The article wasn\'t saved.  Hopefully it is still there.');
-            res.end('ya done');
         } else {
             res.redirect('/');
         }

@@ -1,0 +1,13 @@
+jasonontheweb todo:
+	- about me page
+	- some of my work page
+	- write a blog post
+	- validation of input
+	- abstract out user data
+	- code syntax highlighting (highlight js?)
+	- live preview of post
+
+completed:
+	- style new blog post page
+	- markdown as input
+	- friendly time formatting
