@@ -1,6 +1,5 @@
 var express = require('express');
     app = module.exports = express();
-var config = require('./config');
 var routes = require('./app/routes');
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
