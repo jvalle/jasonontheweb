@@ -1,7 +1,6 @@
-var config = require('../../config.js');
 var moment = require('moment');
 
-var mongouri = process.env.MONGO_URI || config.mongohq_uri;
+var mongouri = process.env.MONGO_URI || require('../../config.js').config.mongohq_uri;
 
 var db = require('mongojs').connect(mongouri, ['articles']);
 
